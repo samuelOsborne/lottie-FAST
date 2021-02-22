@@ -1,0 +1,40 @@
+{
+  "name": "lottie-fast",
+  "version": "1.0.0",
+  "description": "A custom element Lottie player build using Microsoft FAST",
+  "main": "dist/lottie-fast.js",
+  "keywords": [
+    "lottie",
+    "fast"
+  ],
+  "author": "Samuel Osborne",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/samuelOsborne/lottie-FAST"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@microsoft/fast-element": "^0.22.2",
+    "lottie-web": "^5.7.6"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^4.15.1",
+    "@typescript-eslint/parser": "^4.15.1",
+    "eslint": "^7.20.0",
+    "eslint-config-prettier": "^8.0.0",
+    "eslint-plugin-prettier": "^3.3.1",
+    "prettier": "^2.2.1",
+    "ts-loader": "^8.0.17",
+    "typescript": "^4.1.5",
+    "webpack-cli": "^4.5.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --mode development",
+    "start": "npm run build && npm run serve-examples",
+    "serve-examples": "node serve-examples.js",
+    "release": "webpack --mode production",
+    "prettier-format": "prettier --config .prettierrc.js 'src/**/*.ts' --write",
+    "lint": "eslint . --ext .ts"
+  }
+}
