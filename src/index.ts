@@ -1,4 +1,4 @@
-import { html, css, customElement, attr, observable, FASTElement } from '@microsoft/fast-element';
+import { customElement, attr, observable, FASTElement } from '@microsoft/fast-element';
 import Lottie, { AnimationItem } from 'Lottie-web';
 import { LottiePlayerControlStyles as styles} from "./styles/lottie-player-controls.styles";
 import { LottiePlayerControlTemplate as template } from "./templates/lottie-player-controls.template";
@@ -31,6 +31,7 @@ export class LottieFast extends FASTElement {
     @attr path: string = '';
     @attr({ mode: 'boolean' }) loop: boolean = false;
     @attr({ mode: 'boolean' }) controls: boolean = false;
+    @attr({ mode: 'boolean' }) autoplay: boolean = false;
 
     @observable public currentFrame: number = 0;
     @observable public playing: boolean = false;
@@ -112,6 +113,10 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    public toggleLooping() {
+        this.loop = !this.loop;
+    }
+
     public pauseAnimation() {
         console.log("PAUSING");
         if (this.lottie) {
@@ -136,13 +141,21 @@ export class LottieFast extends FASTElement {
             container: this.animationContainer,
             renderer: 'svg',
             loop: this.loop,
-            autoplay: true,
+            autoplay: this.autoplay,
             path: this.path
         });
 
         this.lottie.addEventListener("DOMLoaded", ()=> {
             this.maxFrame = this.lottie.getDuration(true);
             this.playing = true;
+        });
+
+        this.lottie.addEventListener("complete", ()=> {
+            this.playing = false;
+           if (this.loop) {
+               this.lottie.goToAndPlay(0, true);
+               this.playing = true;
+           }
         });
 
         this.lottie.addEventListener("enterFrame", function (animation: any) {
