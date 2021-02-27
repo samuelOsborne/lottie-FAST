@@ -38,12 +38,12 @@ export const LottiePlayerControlTemplate = html`
             </div>
             <input
                     id="slider"
-                    class=" progress"
+                    class="progress"
                     type="range"
                     min="0"
                     step="1"
                     max="${x => x.maxFrame}"
-                    value="${x => x.currentFrame}"
+                    :value="${x => x.currentFrame}"
                     @input="${(x, c) => x.handleScrubbing(c.event)}"
                     @mouseup="${x => x.playAnimation()}}"
             />
@@ -76,5 +76,6 @@ export const LottiePlayerControlTemplate = html`
                     ></path>
                 </svg>
             </div>
+            <color-picker :color="${x => x.background }" id="color-picker"></color-picker>
         </div>
 `;

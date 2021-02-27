@@ -1,19 +1,23 @@
-import { customElement, attr, observable, FASTElement } from '@microsoft/fast-element';
+import { customElement, attr, observable, Observable, FASTElement } from '@microsoft/fast-element';
 import Lottie, { AnimationItem } from 'Lottie-web';
+import { ColorPicker } from "./components/color-picker";
 import { LottiePlayerControlStyles as styles} from "./styles/lottie-player-controls.styles";
 import { LottiePlayerControlTemplate as template } from "./templates/lottie-player-controls.template";
+
+/**
+ * ColorPicker is defined here so that it isn't tree-shaken
+ */
+ColorPicker;
 
 /**
  * TODO
  * import more custom elements from local path
  */
-
 const styling = `
   :host {
     justify-content: center;
     align-items: center;
     display: inline-block;
-    background-color: #295573
   }
   div {
     width: 100%;
@@ -32,6 +36,7 @@ export class LottieFast extends FASTElement {
     @attr({ mode: 'boolean' }) loop: boolean = false;
     @attr({ mode: 'boolean' }) controls: boolean = false;
     @attr({ mode: 'boolean' }) autoplay: boolean = false;
+    @attr background: string = null;
 
     @observable public currentFrame: number = 0;
     @observable public playing: boolean = false;
@@ -49,7 +54,23 @@ export class LottieFast extends FASTElement {
         style.innerHTML = styling;
         this.shadowRoot.appendChild(style);
         this.animationContainer = document.createElement('div');
+        this.animationContainer.id = "animation-container";
         this.shadowRoot.appendChild(this.animationContainer);
+
+        /**
+         * Initialize the color picker observer
+         */
+        const person = ColorPicker;
+        const notifier = Observable.getNotifier(person);
+        const handler = {
+            handleChange(source: any, propertyName: string) {
+                console.log(source.color);
+                this.background = source.color;
+                console.log("New background color: " + this.background);
+            }
+        };
+        notifier.subscribe(handler, 'color');
+
     }
 
     /**
@@ -69,10 +90,26 @@ export class LottieFast extends FASTElement {
             this.lottie.loop = false;
     }
 
+    /**
+     * Background color listener
+     */
+    backgroundChanged() {
+        console.log("Background changed");
+        if (this.animationContainer)
+            this.animationContainer.style.backgroundColor = this.background;
+    }
+
     connectedCallback() {
         super.connectedCallback();
         console.log('name-tag is now connected to the DOM');
         this.loadLottieAnimation();
+
+        let colorPicker = this.shadowRoot.getElementById("color-picker");
+        if (colorPicker) {
+            colorPicker.addEventListener("colorChange", function(e: CustomEvent) {
+                this.background = e.detail;
+            }.bind(this));
+        }
     }
 
     disconnectedCallback() {
