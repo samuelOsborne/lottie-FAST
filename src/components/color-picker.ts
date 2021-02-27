@@ -1,4 +1,4 @@
-import {html, css} from '@microsoft/fast-element';
+import { css } from '@microsoft/fast-element';
 import {customElement, observable, FASTElement} from "@microsoft/fast-element";
 import { LottiePlayerControlStyles } from "../styles/lottie-player-controls.styles";
 import { ColorPickerStyles } from "../styles/color-picker.styles";

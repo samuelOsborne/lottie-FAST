@@ -1,6 +1,7 @@
 import { customElement, attr, observable, Observable, FASTElement } from '@microsoft/fast-element';
 import Lottie, { AnimationItem } from 'Lottie-web';
 import { ColorPicker } from "./components/color-picker";
+import { SnapShot } from "./components/snapshot";
 import { LottiePlayerControlStyles as styles} from "./styles/lottie-player-controls.styles";
 import { LottiePlayerControlTemplate as template } from "./templates/lottie-player-controls.template";
 
@@ -8,6 +9,7 @@ import { LottiePlayerControlTemplate as template } from "./templates/lottie-play
  * ColorPicker is defined here so that it isn't tree-shaken
  */
 ColorPicker;
+SnapShot;
 
 /**
  * TODO
@@ -110,6 +112,34 @@ export class LottieFast extends FASTElement {
                 this.background = e.detail;
             }.bind(this));
         }
+
+        let snapshot = this.shadowRoot.getElementById("snap-shot");
+        if (snapshot) {
+            snapshot.addEventListener("freezeAnimation", function(e: Event) {
+                this.pauseAnimation();
+            }.bind(this));
+            snapshot.addEventListener("unFreezeAnimation", function(e: Event) {
+                this.playAnimation();
+            }.bind(this));
+            snapshot.addEventListener("downloadSVG", function(e: Event) {
+                // Get SVG element and serialize markup
+                if (this.animationContainer) {
+                    const svgElement = this.animationContainer.querySelector("svg");
+                    if (svgElement) {
+                        console.log("Downloading...");
+                        const serializedSvg = new XMLSerializer().serializeToString(svgElement);
+                        let data = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(serializedSvg);
+
+                        const element = document.createElement('a');
+                        element.href = data;
+                        element.download = "snapshot_" + this.currentFrame + ".svg";
+                        document.body.appendChild(element);
+                        element.click();
+                        document.body.removeChild(element);
+                    }
+                }
+            }.bind(this));
+        }
     }
 
     disconnectedCallback() {
@@ -155,7 +185,6 @@ export class LottieFast extends FASTElement {
     }
 
     public pauseAnimation() {
-        console.log("PAUSING");
         if (this.lottie) {
             this.lottie.pause();
             this.playing = false;
@@ -165,7 +194,6 @@ export class LottieFast extends FASTElement {
     }
 
     public playAnimation() {
-        console.log("RESUMING");
         if (this.lottie) {
             this.playing = true;
             this.lottie.play();
@@ -173,7 +201,6 @@ export class LottieFast extends FASTElement {
     }
 
     private loadLottieAnimation() {
-        console.log("THIS LOOP : " + this.loop);
         this.lottie = Lottie.loadAnimation({
             container: this.animationContainer,
             renderer: 'svg',

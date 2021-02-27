@@ -76,6 +76,7 @@ export const LottiePlayerControlTemplate = html`
                     ></path>
                 </svg>
             </div>
-            <color-picker :color="${x => x.background }" id="color-picker"></color-picker>
+            <color-picker :color="${ x => x.background }" id="color-picker"></color-picker>
+            <snap-shot :frame="${ x => x.currentFrame }" id="snap-shot"></snap-shot>
         </div>
 `;
