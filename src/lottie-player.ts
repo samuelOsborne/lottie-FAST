@@ -34,7 +34,8 @@ export class LottiePlayer extends FASTElement {
      * @remarks
      * HTML Attribute: path
      */
-    @attr path: string = null;
+    @attr
+    path: string = null;
 
     /**
      *  Loop the animation
@@ -56,7 +57,8 @@ export class LottiePlayer extends FASTElement {
      * @remarks
      * HTML Attribute: controls
      */
-    @attr({ mode: 'boolean' }) controls: boolean = false;
+    @attr({ mode: 'boolean' })
+    controls: boolean = false;
 
     /**
      * Autoplay the animation
@@ -65,7 +67,8 @@ export class LottiePlayer extends FASTElement {
      * @remarks
      * HTML Attribute: autoplay
      */
-    @attr({ mode: 'boolean' }) autoplay: boolean = false;
+    @attr({ mode: 'boolean' })
+    autoplay: boolean = false;
 
     /**
      *  Animation background color
@@ -85,35 +88,40 @@ export class LottiePlayer extends FASTElement {
      *
      * @remarks
      */
-    @observable public currentFrame: number = 0;
+    @observable
+    public currentFrame: number = 0;
 
     /**
      * Animation play state
      *
      * @remarks
      */
-    @observable public playing: boolean = false;
+    @observable
+    public playing: boolean = false;
 
     /**
      * Maximum frame of the animation
      *
      * @remarks
      */
-    @observable public maxFrame: number = 0;
+    @observable
+    public maxFrame: number = 0;
 
     /**
      * Zoomed animation state
      *
      * @remarks
      */
-    @observable public isZoomed: boolean = false;
+    @observable
+    public isZoomed: boolean = false;
 
     /**
      * Animation data loaded from the "path" attribute
      *
      * @remarks
      */
-    @observable public animationData: any;
+    @observable
+    public animationData: any;
 
     /**
      * HTMLElement that contains the Lottie animation and control bar

@@ -12,6 +12,13 @@ Under the hood, we used [Microsoft FAST](https://www.fast.design/) for the creat
 - Configuration of lottie-web via attributes
 - Control toolbar with play, pause, stop, progress track with seeker, looping
 
+## Tools used
+
+- [Microsoft FAST](https://www.fast.design/) for creating the custom elements
+- [Lottie-web](https://github.com/airbnb/lottie-web) for the Lottie player
+- Karma + Mocha for testing
+
+
 ## Table of Contents
 
 - [Installation](#installation)
