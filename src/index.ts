@@ -2,9 +2,9 @@ import { customElement, attr, observable, Observable, FASTElement } from '@micro
 import Lottie, { AnimationItem } from 'Lottie-web';
 import { ColorPicker } from "./components/color-picker";
 import { SnapShot } from "./components/snapshot";
-import { AnimationInfo } from "./components/AnimationInfo";
-import { LottiePlayerControlStyles as styles} from "./styles/lottie-player-controls.styles";
-import { LottiePlayerControlTemplate as template } from "./templates/lottie-player-controls.template";
+import { AnimationInfo } from "./components/animation-info";
+import { LottiePlayerControlsStyles as styles} from "./styles/lottie-player-controls.styles";
+import { LottiePlayerControlsTemplate as template } from "./templates/lottie-player-controls.template";
 
 /*
  * Ensure that tree-shaking doesn't remove these components from the bundle.

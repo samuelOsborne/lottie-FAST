@@ -1,6 +1,6 @@
 import { css } from "@microsoft/fast-element";
 
-export const LottiePlayerControlStyles = css`
+export const LottiePlayerControlsStyles = css`
   .lottie-player-controls {
     align-items: center;
     display: flex;

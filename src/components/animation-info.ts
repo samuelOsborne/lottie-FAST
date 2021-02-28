@@ -1,15 +1,15 @@
 import { css, attr } from '@microsoft/fast-element';
 import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { LottiePlayerControlStyles } from "../styles/lottie-player-controls.styles";
+import { LottiePlayerControlsStyles } from "../styles/lottie-player-controls.styles";
 import { AnimationInfoStyles } from "../styles/animation-info.styles";
-import { InfoTemplate as template } from "../templates/info.template"
-import { Popover } from "./popover"
+import { AnimationInfoTemplate as template } from "../templates/animation-info"
+import { PopOver } from "./pop-over"
 
-Popover;
+PopOver;
 
 const styles = css`
   ${AnimationInfoStyles}
-  ${LottiePlayerControlStyles}
+  ${LottiePlayerControlsStyles}
 `
 
 @customElement({

@@ -1,15 +1,15 @@
 import { css } from '@microsoft/fast-element';
 import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { LottiePlayerControlStyles } from "../styles/lottie-player-controls.styles";
+import { LottiePlayerControlsStyles } from "../styles/lottie-player-controls.styles";
 import { ColorPickerStyles } from "../styles/color-picker.styles";
 import { ColorPickerTemplate as template } from "../templates/color-picker.template"
-import { Popover } from "./popover"
+import { PopOver } from "./pop-over"
 
-Popover;
+PopOver;
 
 const styles = css`
   ${ColorPickerStyles};
-  ${LottiePlayerControlStyles}
+  ${LottiePlayerControlsStyles}
 `
 
 @customElement({

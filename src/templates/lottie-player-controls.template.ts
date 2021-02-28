@@ -1,6 +1,6 @@
 import { html } from '@microsoft/fast-element';
 
-export const LottiePlayerControlTemplate = html`
+export const LottiePlayerControlsTemplate = html`
     <div class="lottie-player-controls" id="player-controls" style="display: ${x => !x.controls ? 'none' : ''}">
         <div class='btn' @click='${x => x.previousFrame()}' id="prev-frame-btn">
           <svg width='14px' height='14px' viewBox='0 0 24 24'>

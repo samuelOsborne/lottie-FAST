@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import {ColorPicker} from "../components/color-picker";
+import { ColorPicker } from "../components/color-picker";
 
 export const ColorPickerTemplate = html<ColorPicker>`
     <pop-over>

@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import {SnapShot} from "../components/snapshot";
+import { SnapShot } from "../components/snapshot";
 
 export const SnapShotTemplate = html<SnapShot>`
     <pop-over @mouseover="${ x => x.freezeAnimation(true) }" @mouseout="${ x => x.freezeAnimation(false) }">

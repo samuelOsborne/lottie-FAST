@@ -1,7 +1,7 @@
 import { html } from '@microsoft/fast-element';
-import { AnimationInfo } from "../components/AnimationInfo";
+import { AnimationInfo } from "../components/animation-info";
 
-export const InfoTemplate = html<AnimationInfo>`
+export const AnimationInfoTemplate = html<AnimationInfo>`
     <pop-over>
         <div slot="icon">
             <svg width='14px' height='14px' viewBox='0 0 24 24'>

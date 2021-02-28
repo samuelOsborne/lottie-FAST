@@ -2,9 +2,9 @@ import { css, attr } from '@microsoft/fast-element';
 import {customElement, observable, FASTElement} from "@microsoft/fast-element";
 import { PopoverStyles } from "../styles/popover.styles";
 import { SnapShotTemplate as template } from "../templates/snap-shot.template"
-import { Popover } from "./popover"
+import { PopOver } from "./pop-over"
 
-Popover;
+PopOver;
 
 const styles = css`
   ${PopoverStyles}
