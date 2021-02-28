@@ -5,11 +5,30 @@ export const LottiePlayerControlStyles = css`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: 4px 8px;
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
     sans-serif !important;
+    background-color: #ffffff;
   }
 
+  .lottie-player {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    transition: box-shadow 0.6s;
+    /* overflow: hidden; */
+  }
+
+  .lottie-player.is-zoomed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    box-shadow: 0px 0px 56px -14px rgba(0, 0, 0, 0.6);
+    margin: 100px 100px 0 100px;
+    border-radius: 6px;
+    z-index: 100;
+  }
+  
   .lottie-player-controls > div {
     margin-left: 4px;
   }
@@ -46,8 +65,17 @@ export const LottiePlayerControlStyles = css`
     background: none;
     border: none;
     outline: none;
+    background: #ccc;
   }
-  .progress::-webkit-slider-thumb {
+  .progress::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 3px;
+    cursor: pointer;
+    background: #ccc;
+    border-color: transparent;
+    color: transparent;
+  }
+.progress::-webkit-slider-thumb {
     -webkit-appearance: none !important;
     height: 13px;
     width: 13px;
@@ -55,6 +83,7 @@ export const LottiePlayerControlStyles = css`
     border-radius: 50%;
     background: #0fccce;
     cursor: pointer;
+    margin: -5px;
   }
   .progress::-moz-range-thumb {
     -moz-appearance: none !important;
@@ -88,6 +117,7 @@ export const LottiePlayerControlStyles = css`
     border-radius: 50%;
     background: #0fccce;
     cursor: pointer;
+    margin: 0; /* Reset margin in Edge since it supports -webkit-slider-thumb as well */
   }
   .progress:focus::-ms-fill-lower {
     background: #ccc;
@@ -95,40 +125,7 @@ export const LottiePlayerControlStyles = css`
   .progress:focus::-ms-fill-upper {
     background: #ccc;
   }
-  .popover {
-    padding: 10px;
-    background: #fff;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana,
-    sans-serif;
-    font-size: 0.75rem;
-    border-radius: 5px;
-  }
-
-  .popover-snapshot {
-    width: 150px;
-  }
-  .popover-snapshot h5 {
-    margin: 5px 0 10px 0;
-    font-size: 0.75rem;
-  }
-  .popover-snapshot a {
-    display: block;
-    text-decoration: none;
-  }
-  .popover-snapshot a:before {
-    content: '⥼';
-    margin-right: 5px;
-  }
-  .popover-snapshot .note {
-    display: block;
-    margin-top: 10px;
-    color: #999;
-  }
-
-  .popover-info {
-    width: 250px;
-  }
-
+    
   .frame-number {
     outline: none;
     border: 1px #ccc solid;
@@ -139,9 +136,5 @@ export const LottiePlayerControlStyles = css`
     font-size: 0.7rem;
     padding: 0;
     font-family: inherit;
-  }
-
-  .popover-background {
-    width: 350px;
   }
 `

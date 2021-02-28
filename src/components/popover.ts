@@ -1,19 +1,21 @@
-import {html} from '@microsoft/fast-element';
+import {css, html} from '@microsoft/fast-element';
 import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { PopoverStyles as styles} from "../styles/popover.styles";
+import { PopoverStyles} from "../styles/popover.styles";
+import {LottiePlayerControlStyles} from "../styles/lottie-player-controls.styles";
+
+const styles = css`
+  ${PopoverStyles}
+  ${LottiePlayerControlStyles}
+`
 
 const template = html<Popover>`
     <div class="popover" @mouseover="${x => x.showModal()}" @mouseout="${x => x.showModal()}" >
         <div class="btn">
-            <div>
-                <slot name="icon"></slot>
-            </div>
+            <slot name="icon"></slot>
         </div>
-        <div class="popover-content left-align right-align ${x => !x.show ? 'hidden':''}">
-            <div>
-                <slot name="content" />
-                <div class="arrow" style="border-color: #ffffff transparent transparent transparent;" />
-            </div>
+        <div class="popover-content left-align ${x => !x.show ? 'hidden' : ''}">
+            <slot name="content"></slot>
+            <div class="arrow" style="border-color: #ffffff transparent transparent transparent;" />
         </div>
     </div>
 `
@@ -25,6 +27,7 @@ const template = html<Popover>`
 })
 export class Popover extends FASTElement {
     @observable public show: boolean = false;
+    @observable public alignment: number = -1;
 
     constructor() {
         super();

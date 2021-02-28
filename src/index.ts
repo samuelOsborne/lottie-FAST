@@ -2,31 +2,16 @@ import { customElement, attr, observable, Observable, FASTElement } from '@micro
 import Lottie, { AnimationItem } from 'Lottie-web';
 import { ColorPicker } from "./components/color-picker";
 import { SnapShot } from "./components/snapshot";
+import { AnimationInfo } from "./components/AnimationInfo";
 import { LottiePlayerControlStyles as styles} from "./styles/lottie-player-controls.styles";
 import { LottiePlayerControlTemplate as template } from "./templates/lottie-player-controls.template";
 
-/**
- * ColorPicker is defined here so that it isn't tree-shaken
+/*
+ * Ensure that tree-shaking doesn't remove these components from the bundle.
  */
 ColorPicker;
 SnapShot;
-
-/**
- * TODO
- * import more custom elements from local path
- */
-const styling = `
-  :host {
-    justify-content: center;
-    align-items: center;
-    display: inline-block;
-  }
-  div {
-    width: 100%;
-    height: 100%;
-    margin: auto;
-  }
-`;
+AnimationInfo;
 
 @customElement({
     name: 'lottie-fast',
@@ -43,20 +28,20 @@ export class LottieFast extends FASTElement {
     @observable public currentFrame: number = 0;
     @observable public playing: boolean = false;
     @observable public maxFrame: number = 0;
+    @observable public isZoomed: boolean = false;
 
 
     public animationContainer: HTMLElement;
     private lottie: AnimationItem;
+    @observable public animationData: any;
 
 
     constructor() {
         super();
 
-        const style = document.createElement('style');
-        style.innerHTML = styling;
-        this.shadowRoot.appendChild(style);
         this.animationContainer = document.createElement('div');
         this.animationContainer.id = "animation-container";
+        this.animationContainer.classList.add("lottie-player");
         this.shadowRoot.appendChild(this.animationContainer);
 
         /**
@@ -72,7 +57,6 @@ export class LottieFast extends FASTElement {
             }
         };
         notifier.subscribe(handler, 'color');
-
     }
 
     /**
@@ -104,7 +88,8 @@ export class LottieFast extends FASTElement {
     connectedCallback() {
         super.connectedCallback();
         console.log('name-tag is now connected to the DOM');
-        this.loadLottieAnimation();
+        // this.loadLottieAnimation();
+        this.loadLottieData();
 
         let colorPicker = this.shadowRoot.getElementById("color-picker");
         if (colorPicker) {
@@ -188,8 +173,6 @@ export class LottieFast extends FASTElement {
         if (this.lottie) {
             this.lottie.pause();
             this.playing = false;
-            // body.document.getElementById("pause-btn").display = "none";
-            // body.document.getElementById("play-btn").display = "none";
         }
     }
 
@@ -200,18 +183,45 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    public zoomAnimation() {
+        this.isZoomed = !this.isZoomed;
+        this.isZoomed ? this.animationContainer.classList.add("is-zoomed") : this.animationContainer.classList.remove("is-zoomed");
+    }
+
+    private async loadLottieData() {
+        if (this.path === null) {
+            this.animationData = null;
+            return;
+        }
+        try {
+            const response = await fetch(this.path);
+            this.animationData = await response.json();
+            this.loadLottieAnimation();
+        } catch (e) {
+            console.error("[Lottie-FAST] Your JSON data could not be loaded.");
+            return;
+        }
+    }
+
     private loadLottieAnimation() {
         this.lottie = Lottie.loadAnimation({
             container: this.animationContainer,
             renderer: 'svg',
             loop: this.loop,
             autoplay: this.autoplay,
-            path: this.path
+            animationData: this.animationData
         });
 
         this.lottie.addEventListener("DOMLoaded", ()=> {
             this.maxFrame = this.lottie.getDuration(true);
             this.playing = true;
+
+            /**
+             * Append control bar after Lottie svg element
+             */
+            let playerControls = this.shadowRoot.getElementById("player-controls");
+            this.animationContainer.append(playerControls);
+
         });
 
         this.lottie.addEventListener("complete", ()=> {

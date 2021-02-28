@@ -1,13 +1,13 @@
 import { css, attr } from '@microsoft/fast-element';
 import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { LottiePlayerControlStyles } from "../styles/lottie-player-controls.styles";
+import { PopoverStyles } from "../styles/popover.styles";
 import { SnapShotTemplate as template } from "../templates/snap-shot.template"
 import { Popover } from "./popover"
 
 Popover;
 
 const styles = css`
-  ${LottiePlayerControlStyles}
+  ${PopoverStyles}
 `
 
 @customElement({

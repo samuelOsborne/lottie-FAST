@@ -23,8 +23,10 @@ export const SnapShotTemplate = html<SnapShot>`
             </svg>
         </div>
         <div slot="content" class="popover-snapshot">
-            <h5>${ x => x.frame }</h5>
-            <a href="" @click="${ x => x.downloadSVG() }">Download SVG</a>
+            <div class="popover-snapshot">
+                <h5>Frame ${ x => x.frame }</h5>
+                <a href="" @click="${ x => x.downloadSVG() }">Download SVG</a>
+            </div>
         </div>
     </pop-over>
 `
