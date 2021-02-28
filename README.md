@@ -1,3 +1,5 @@
+### Lottie-player
+
 ![Screenshot](assets/thumbnail.png?raw=true)
 
 >A custom element Lottie player
@@ -10,7 +12,7 @@ Under the hood, we used [Microsoft FAST](https://www.fast.design/) for the creat
 ## Features
 
 - Configuration of lottie-web via attributes
-- Control toolbar with play, pause, stop, progress track with seeker, looping
+- Control toolbar with play, pause, stop, progress track with seeker, looping and color picker
 
 ## Tools used
 
@@ -39,7 +41,7 @@ Download the minified package found at dist/lottie-player.js and place inside yo
 Then in the header of your HTML:
 
 ```HTML
-<script type="module" src="dist/lottie-player.js"></script>
+<script type="module" src="lottie-player.js"></script>
 ```
 
 ## Usage
@@ -52,7 +54,7 @@ Basic steps for use in a web project:
 <head>
     <meta charset="UTF-8">
     <title>My website</title>
-    <script type="module" src="../dist/lottie-player.js"></script>
+    <script type="module" src="lottie-player.js"></script>
 </head>
 
 <lottie-player path='https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json'
