@@ -77,7 +77,7 @@ export const LottiePlayerControlsTemplate = html`
             </svg>
         </div>
         <div style="margin-left: 10px"></div>
-        <color-picker id="color-picker"></color-picker>
+        <color-picker :color="${x => x.background }" id="color-picker"></color-picker>
         <snap-shot :frame="${ x => x.currentFrame }" id="snap-shot"></snap-shot>
         <animation-info :animationData="${ x => x.animationData }"></animation-info>
         <div class="btn" @click='${ x => x.zoomAnimation() }' style="padding: 10px">

@@ -15,7 +15,6 @@ export const LottiePlayerControlsStyles = css`
     display: flex;
     flex-direction: column;
     transition: box-shadow 0.6s;
-    /* overflow: hidden; */
   }
 
   .lottie-player.is-zoomed {

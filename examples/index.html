@@ -2,35 +2,121 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Switch example</title>
-    <script type="module" src="../dist/lottie-fast.js"></script>
+    <title>Lottie-player example</title>
+    <script type="module" src="../dist/lottie-player.js"></script>
 </head>
 
 <body>
 <div>
     <h1>Lottie Player</h1>
-    <p>Load and play lottie animations</p>
     <div class="center-content">
-        <lottie-player path='https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json'
-                     loop
-                     autoplay
-                     background="#8db2e5"
-                     controls>
-        </lottie-player>
+        <p>Load and play lottie animations</p>
     </div>
     <div class="center-content">
-        <lottie-player path='./animations/svgenius-logo.json'
-                       loop
-                       autoplay
-                       controls
-                       background="#cd63c5">
-        </lottie-player>
+        <div class="l-elem">
+            <lottie-player path='https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json'
+                           loop
+                           autoplay
+                           background="#8db2e5"
+                           controls>
+            </lottie-player>
+        </div>
+        <div class="r-elem">
+            <h3> Attributes: </h3>
+            <ul>
+                <li>
+                    path='https://assets2.lottiefiles.com/packages/lf20_wxUJzo.json'
+                </li>
+                <li>
+                    loop
+                </li>
+                <li>
+                    autoplay
+                </li>
+                <li>
+                    background="#8db2e5"
+                </li>
+                <li>
+                    controls
+                </li>
+            </ul>
+        </div>
     </div>
     <div class="center-content">
-        <lottie-player path='./animations/svgenius-logo.json'
-                       loop
-                       controls>
-        </lottie-player>
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type
+            specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMaker
+            including versions of Lorem Ipsum.
+        </p>
+    </div>
+    <br>
+    <div class="center-content">
+        <div class="l-elem">
+            <lottie-player path='./animations/svgenius-logo.json'
+                           autoplay
+                           controls
+                           background="#cd63c5">
+            </lottie-player>
+        </div>
+
+        <div class="r-elem">
+            <h3> Attributes: </h3>
+            <ul>
+                <li>
+                    path='./animations/svgenius-logo.json'
+                </li>
+                <li>
+                    autoplay
+                </li>
+                <li>
+                    background="#8db2e5"
+                </li>
+                <li>
+                    controls
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="center-content">
+        <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+            Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
+            when an unknown printer took a galley of type and scrambled it to make a type
+            specimen book. It has survived not only five centuries, but also the leap into
+            electronic typesetting, remaining essentially unchanged. It was popularised in
+            the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,
+            and more recently with desktop publishing software like Aldus PageMaker
+            including versions of Lorem Ipsum.
+        </p>
+    </div>
+    <br>
+    <div class="center-content">
+        <div class="l-elem">
+            <lottie-player
+                    path='./animations/svgenius-logo.json'
+                    autoplay
+                    background="#cf0532">
+            </lottie-player>
+        </div>
+        <div class="r-elem">
+            <h3> Attributes: </h3>
+            <ul>
+                <li>
+                    path='./animations/svgenius-logo.json'
+                </li>
+                <li>
+                    background="#cf0532"
+                </li>
+                <li>
+                    autoplay
+                </li>
+            </ul>
+        </div>
     </div>
     <p>
         Lorem Ipsum is simply dummy text of the printing and typesetting industry.
@@ -58,5 +144,13 @@
         justify-content: center;
         align-items: center;
         display: flex;
+    }
+
+    .l-elem {
+        margin-right: 20px;
+    }
+
+    .r-elem {
+        margin-left: 20px;
     }
 </style>

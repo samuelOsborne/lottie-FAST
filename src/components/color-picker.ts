@@ -36,6 +36,20 @@ export class ColorPicker extends FASTElement {
     @observable
     public color: string = '';
 
+    connectedCallback() {
+        super.connectedCallback();
+
+        /**
+         * Initialize color sliders if the user set the "background" attribute on lottie-player
+         */
+        var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(this.color);
+        if (result) {
+            this.red = parseInt(result[1], 16);
+            this.green = parseInt(result[2], 16);
+            this.blue = parseInt(result[3], 16);
+        }
+    }
+
     /**
      * The selected red value
      *
