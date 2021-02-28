@@ -20,20 +20,33 @@ const template = html<PopOver>`
     </div>
 `
 
+/**
+ * The pop-over element. Template component that manages showing the modal on mouseover.
+ *
+ * @public
+ * @remarks
+ * HTML Element: \<pop-over\>
+ */
 @customElement({
     name: 'pop-over',
     template,
     styles
 })
 export class PopOver extends FASTElement {
-    @observable public show: boolean = false;
-    @observable public alignment: number = -1;
+    /**
+     * Manages the modal display state
+     * @remarks
+     */
+    @observable
+    public show: boolean = false;
 
-    constructor() {
-        super();
-    }
-
-    showModal() {
+    /**
+     * Hides or displays the modal
+     *
+     * @public
+     * @remarks
+     */
+    public showModal() {
         this.show = !this.show;
     }
 }

@@ -13,84 +13,154 @@ ColorPicker;
 SnapShot;
 AnimationInfo;
 
+/**
+ * The lottie-player element.
+ *
+ *
+ * @public
+ * @remarks
+ * HTML Element: \<lottie-player\>
+ */
 @customElement({
-    name: 'lottie-fast',
+    name: 'lottie-player',
     template,
     styles
 })
-export class LottieFast extends FASTElement {
-    @attr path: string = '';
+export class LottiePlayer extends FASTElement {
+    /**
+     * Path or URL to the Lottie animation
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: path
+     */
+    @attr path: string = null;
+
+    /**
+     *  Loop the animation
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: loop
+     */
     @attr({ mode: 'boolean' }) loop: boolean = false;
-    @attr({ mode: 'boolean' }) controls: boolean = false;
-    @attr({ mode: 'boolean' }) autoplay: boolean = false;
-    @attr background: string = null;
-
-    @observable public currentFrame: number = 0;
-    @observable public playing: boolean = false;
-    @observable public maxFrame: number = 0;
-    @observable public isZoomed: boolean = false;
-
-
-    public animationContainer: HTMLElement;
-    private lottie: AnimationItem;
-    @observable public animationData: any;
-
-
-    constructor() {
-        super();
-
-        this.animationContainer = document.createElement('div');
-        this.animationContainer.id = "animation-container";
-        this.animationContainer.classList.add("lottie-player");
-        this.shadowRoot.appendChild(this.animationContainer);
-
-        /**
-         * Initialize the color picker observer
-         */
-        const person = ColorPicker;
-        const notifier = Observable.getNotifier(person);
-        const handler = {
-            handleChange(source: any, propertyName: string) {
-                console.log(source.color);
-                this.background = source.color;
-                console.log("New background color: " + this.background);
-            }
-        };
-        notifier.subscribe(handler, 'color');
-    }
-
-    /**
-     * Path listener
-     */
-    pathChanged() {
-        console.log("This path :" + this.path);
-        //this.loadLottieAnimation();
-    }
-
-    /**
-     * Loop listener
-     */
     loopChanged() {
-        console.log("THIS LOOP : " + this.loop);
         if (this.lottie)
-            this.lottie.loop = false;
+            this.lottie.loop = this.loop;
     }
 
     /**
-     * Background color listener
+     * Display the controls bar
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: controls
      */
+    @attr({ mode: 'boolean' }) controls: boolean = false;
+
+    /**
+     * Autoplay the animation
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: autoplay
+     */
+    @attr({ mode: 'boolean' }) autoplay: boolean = false;
+
+    /**
+     *  Animation background color
+     *
+     * @public
+     * @remarks
+     * HTML Attribute: background
+     */
+    @attr background: string = null;
     backgroundChanged() {
-        console.log("Background changed");
         if (this.animationContainer)
             this.animationContainer.style.backgroundColor = this.background;
     }
 
+    /**
+     * The current animation frame
+     *
+     * @remarks
+     */
+    @observable public currentFrame: number = 0;
+
+    /**
+     * Animation play state
+     *
+     * @remarks
+     */
+    @observable public playing: boolean = false;
+
+    /**
+     * Maximum frame of the animation
+     *
+     * @remarks
+     */
+    @observable public maxFrame: number = 0;
+
+    /**
+     * Zoomed animation state
+     *
+     * @remarks
+     */
+    @observable public isZoomed: boolean = false;
+
+    /**
+     * Animation data loaded from the "path" attribute
+     *
+     * @remarks
+     */
+    @observable public animationData: any;
+
+    /**
+     * HTMLElement that contains the Lottie animation and control bar
+     *
+     * @remarks
+     */
+    public animationContainer: HTMLElement;
+
+    /**
+     * The Lottie animation object returned by Lottie.loadAnimation
+     *
+     * @remarks
+     * @private
+     */
+    private lottie: AnimationItem;
+
+    constructor() {
+        super();
+
+        /**
+         * Add the animation container to the shadow root
+         */
+        this.animationContainer = document.createElement('div');
+        this.animationContainer.id = "animation-container";
+        this.animationContainer.classList.add("lottie-player");
+        this.shadowRoot.appendChild(this.animationContainer);
+    }
+
     connectedCallback() {
         super.connectedCallback();
-        console.log('name-tag is now connected to the DOM');
-        // this.loadLottieAnimation();
-        this.loadLottieData();
 
+        this.loadLottieData();
+        this.initListeners();
+    }
+
+    disconnectedCallback() {
+        super.disconnectedCallback();
+        if (this.lottie)
+            this.lottie.destroy();
+    }
+
+    /**
+     * Initializes listeners on color-picker and snap-shot elements
+     *
+     * @private
+     */
+    private initListeners() {
         let colorPicker = this.shadowRoot.getElementById("color-picker");
         if (colorPicker) {
             colorPicker.addEventListener("colorChange", function(e: CustomEvent) {
@@ -107,38 +177,50 @@ export class LottieFast extends FASTElement {
                 this.playAnimation();
             }.bind(this));
             snapshot.addEventListener("downloadSVG", function(e: Event) {
-                // Get SVG element and serialize markup
-                if (this.animationContainer) {
-                    const svgElement = this.animationContainer.querySelector("svg");
-                    if (svgElement) {
-                        console.log("Downloading...");
-                        const serializedSvg = new XMLSerializer().serializeToString(svgElement);
-                        let data = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(serializedSvg);
-
-                        const element = document.createElement('a');
-                        element.href = data;
-                        element.download = "snapshot_" + this.currentFrame + ".svg";
-                        document.body.appendChild(element);
-                        element.click();
-                        document.body.removeChild(element);
-                    }
-                }
+                this.downloadFrameAsSVG();
             }.bind(this));
         }
     }
 
-    disconnectedCallback() {
-        if (this.lottie)
-            this.lottie.destroy();
+    /**
+     * Fetches the rendered SVG element of the animation and serializes markup
+     *
+     * @private
+     */
+    private downloadFrameAsSVG() {
+        if (this.animationContainer) {
+            const svgElement = this.animationContainer.querySelector("svg");
+            if (svgElement) {
+                const serializedSvg = new XMLSerializer().serializeToString(svgElement);
+                let data = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(serializedSvg);
+
+                const element = document.createElement('a');
+                element.href = data;
+                element.download = "snapshot_" + this.currentFrame + ".svg";
+                document.body.appendChild(element);
+                element.click();
+                document.body.removeChild(element);
+            }
+        }
     }
 
+    /**
+     * Manage scrubbing through frames, pauses the animation whilst this is happening
+     *
+     * @public
+     * @param event
+     */
      public handleScrubbing(event: Event) {
         const newValue: number = parseInt((event.target! as HTMLInputElement).value);
-         console.log(newValue);
          this.lottie.goToAndStop(newValue, true);
          this.playing = false;
     }
 
+    /**
+     * Go back one frame in the animation
+     *
+     * @public
+     */
     public previousFrame() {
         if (this.lottie) {
             if (this.currentFrame > 0)
@@ -148,6 +230,11 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    /**
+     * Go forward one frame in the animation
+     *
+     * @public
+     */
     public nextFrame() {
         if (this.lottie) {
             if (this.currentFrame < this.maxFrame)
@@ -157,6 +244,11 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    /**
+     * Goes to the frame 0 and stops the animation
+     *
+     * @public
+     */
     public restartAnimation() {
         if (this.lottie) {
             this.lottie.goToAndStop(0);
@@ -165,10 +257,20 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    /**
+     * Toggles animation looping
+     *
+     * @public
+     */
     public toggleLooping() {
         this.loop = !this.loop;
     }
 
+    /**
+     * Stops the animation from playing
+     *
+     * @public
+     */
     public pauseAnimation() {
         if (this.lottie) {
             this.lottie.pause();
@@ -176,6 +278,11 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    /**
+     * Plays the animation
+     *
+     * @public
+     */
     public playAnimation() {
         if (this.lottie) {
             this.playing = true;
@@ -183,11 +290,21 @@ export class LottieFast extends FASTElement {
         }
     }
 
+    /**
+     * Zooms the animation
+     *
+     * @public
+     */
     public zoomAnimation() {
         this.isZoomed = !this.isZoomed;
         this.isZoomed ? this.animationContainer.classList.add("is-zoomed") : this.animationContainer.classList.remove("is-zoomed");
     }
 
+    /**
+     * Attempts to load JSON animation data from the path provided as attribute
+     *
+     * @private
+     */
     private async loadLottieData() {
         if (this.path === null) {
             this.animationData = null;
@@ -198,11 +315,17 @@ export class LottieFast extends FASTElement {
             this.animationData = await response.json();
             this.loadLottieAnimation();
         } catch (e) {
-            console.error("[Lottie-FAST] Your JSON data could not be loaded.");
+            console.error("[Lottie-player] Your JSON data could not be loaded.");
             return;
         }
     }
 
+    /**
+     * Method called after loading JSON animation data successfully, loads Lottie animation using Lottie-web
+     * and sets up listeners
+     *
+     * @private
+     */
     private loadLottieAnimation() {
         this.lottie = Lottie.loadAnimation({
             container: this.animationContainer,
@@ -212,18 +335,23 @@ export class LottieFast extends FASTElement {
             animationData: this.animationData
         });
 
+        /**
+         * Animation has been loaded in to the DOM
+         */
         this.lottie.addEventListener("DOMLoaded", ()=> {
             this.maxFrame = this.lottie.getDuration(true);
-            this.playing = true;
+            this.playing = this.autoplay;
 
             /**
-             * Append control bar after Lottie svg element
+             * Append control bar after rendered Lottie SVG element
              */
             let playerControls = this.shadowRoot.getElementById("player-controls");
             this.animationContainer.append(playerControls);
-
         });
 
+        /**
+         * Animation has reached its end
+         */
         this.lottie.addEventListener("complete", ()=> {
             this.playing = false;
            if (this.loop) {
