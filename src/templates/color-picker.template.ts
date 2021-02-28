@@ -1,5 +1,5 @@
 import { html } from '@microsoft/fast-element';
-import { ColorPicker } from "../components/color-picker";
+import { ColorPicker } from '../components/color-picker';
 
 export const ColorPickerTemplate = html<ColorPicker>`
     <pop-over>
@@ -18,18 +18,30 @@ export const ColorPickerTemplate = html<ColorPicker>`
                 <div class="color-selectors">
                     <div class="color-component">
                         <strong>Red</strong>
-                        <input type="range" min="0" max="255" :value="${x => x.red}" @input="${(x, c) => x.handleRedInput(c.event)}"/>
-                        <input class="text-input" min="0" max="255" type="number" :value="${x => x.red}" @input="${(x, c) => x.handleRedInput(c.event)}"/>
+                        <input type="range" min="0" max="255" :value="${(x) => x.red}" @input="${(x, c) =>
+    x.handleRedInput(c.event)}"/>
+                        <input class="text-input" min="0" max="255" type="number" :value="${(x) => x.red}" @input="${(
+    x,
+    c
+) => x.handleRedInput(c.event)}"/>
                     </div>
                     <div class="color-component">
                         <strong>Green</strong>
-                        <input type="range" min="0" max="255" :value="${x => x.green}" @input="${(x, c) => x.handleGreenInput(c.event)}"/>
-                        <input class="text-input" min="0" max="255" type="number" :value="${x => x.green}" @input="${(x, c) => x.handleGreenInput(c.event)}"/>
+                        <input type="range" min="0" max="255" :value="${(x) => x.green}" @input="${(x, c) =>
+    x.handleGreenInput(c.event)}"/>
+                        <input class="text-input" min="0" max="255" type="number" :value="${(x) => x.green}" @input="${(
+    x,
+    c
+) => x.handleGreenInput(c.event)}"/>
                     </div>
                     <div class="color-component">
                         <strong>Blue</strong>
-                        <input type="range" min="0" max="255" :value="${x => x.blue}" @input="${(x, c) => x.handleBlueInput(c.event)}"/>
-                        <input class="text-input" min="0" max="255" type="number" :value="${x => x.blue}" @input="${(x, c) => x.handleBlueInput(c.event)}"/>
+                        <input type="range" min="0" max="255" :value="${(x) => x.blue}" @input="${(x, c) =>
+    x.handleBlueInput(c.event)}"/>
+                        <input class="text-input" min="0" max="255" type="number" :value="${(x) => x.blue}" @input="${(
+    x,
+    c
+) => x.handleBlueInput(c.event)}"/>
                     </div>
                 </div>
                 <div class="color-preview">
@@ -37,11 +49,11 @@ export const ColorPickerTemplate = html<ColorPicker>`
                         <input
                                 class="text-input"
                                 type="text"
-                                :value="${x => x.color}"
+                                :value="${(x) => x.color}"
                                 @input="${(x, c) => x.hexToRgb(c.event)}" />
                     </div>
-                    <div class="preview" style="background: ${x => x.color}" />
+                    <div class="preview" style="background: ${(x) => x.color}" />
                 </div>
             </div>
     </pop-over>
-`
+`;

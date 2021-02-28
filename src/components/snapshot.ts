@@ -1,8 +1,8 @@
 import { css, attr } from '@microsoft/fast-element';
-import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { PopoverStyles } from "../styles/popover.styles";
-import { SnapShotTemplate as template } from "../templates/snap-shot.template"
-import { PopOver } from "./pop-over"
+import { customElement, observable, FASTElement } from '@microsoft/fast-element';
+import { PopoverStyles } from '../styles/popover.styles';
+import { SnapShotTemplate as template } from '../templates/snap-shot.template';
+import { PopOver } from './pop-over';
 
 /*
  * Ensure that tree-shaking doesn't remove this component from the bundle.
@@ -10,8 +10,8 @@ import { PopOver } from "./pop-over"
 PopOver;
 
 const styles = css`
-  ${PopoverStyles}
-`
+    ${PopoverStyles}
+`;
 
 /**
  * The snap-shot element. Creates a downloadable svg image at the current frame.

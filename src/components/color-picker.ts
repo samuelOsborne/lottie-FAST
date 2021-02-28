@@ -1,9 +1,9 @@
 import { css } from '@microsoft/fast-element';
-import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { LottiePlayerControlsStyles } from "../styles/lottie-player-controls.styles";
-import { ColorPickerStyles } from "../styles/color-picker.styles";
-import { ColorPickerTemplate as template } from "../templates/color-picker.template"
-import { PopOver } from "./pop-over"
+import { customElement, observable, FASTElement } from '@microsoft/fast-element';
+import { LottiePlayerControlsStyles } from '../styles/lottie-player-controls.styles';
+import { ColorPickerStyles } from '../styles/color-picker.styles';
+import { ColorPickerTemplate as template } from '../templates/color-picker.template';
+import { PopOver } from './pop-over';
 
 /*
  * Ensure that tree-shaking doesn't remove this component from the bundle.
@@ -11,9 +11,9 @@ import { PopOver } from "./pop-over"
 PopOver;
 
 const styles = css`
-  ${ColorPickerStyles};
-  ${LottiePlayerControlsStyles}
-`
+    ${ColorPickerStyles};
+    ${LottiePlayerControlsStyles}
+`;
 
 /**
  * The color-picker element.
@@ -103,7 +103,7 @@ export class ColorPicker extends FASTElement {
      * @remarks
      */
     private rgbToHex() {
-        this.color = "#" + ((1 << 24) + (this.red << 16) + (this.green << 8) + this.blue).toString(16).slice(1);
+        this.color = '#' + ((1 << 24) + (this.red << 16) + (this.green << 8) + this.blue).toString(16).slice(1);
         this.$emit('colorChange', this.color);
     }
 

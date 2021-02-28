@@ -1,9 +1,9 @@
 import { css, attr } from '@microsoft/fast-element';
-import {customElement, observable, FASTElement} from "@microsoft/fast-element";
-import { LottiePlayerControlsStyles } from "../styles/lottie-player-controls.styles";
-import { AnimationInfoStyles } from "../styles/animation-info.styles";
-import { AnimationInfoTemplate as template } from "../templates/animation-info"
-import { PopOver } from "./pop-over"
+import { customElement, observable, FASTElement } from '@microsoft/fast-element';
+import { LottiePlayerControlsStyles } from '../styles/lottie-player-controls.styles';
+import { AnimationInfoStyles } from '../styles/animation-info.styles';
+import { AnimationInfoTemplate as template } from '../templates/animation-info';
+import { PopOver } from './pop-over';
 
 /*
  * Ensure that tree-shaking doesn't remove this component from the bundle.
@@ -11,9 +11,9 @@ import { PopOver } from "./pop-over"
 PopOver;
 
 const styles = css`
-  ${AnimationInfoStyles}
-  ${LottiePlayerControlsStyles}
-`
+    ${AnimationInfoStyles}
+    ${LottiePlayerControlsStyles}
+`;
 
 /**
  * The animation-info element.

@@ -1,10 +1,10 @@
 import { html } from '@microsoft/fast-element';
-import { AnimationInfo } from "../components/animation-info";
+import { AnimationInfo } from '../components/animation-info';
 
 export const AnimationInfoTemplate = html<AnimationInfo>`
     <pop-over>
         <div slot="icon">
-            <svg width='14px' height='14px' viewBox='0 0 24 24'>
+            <svg width="14px" height="14px" viewBox="0 0 24 24">
                 <path
                     fill-rule="evenodd"
                     clip-rule="evenodd"
@@ -24,58 +24,58 @@ export const AnimationInfoTemplate = html<AnimationInfo>`
             <div class="info-template">
                 <h4>Info</h4>
 
-                <div class="property" style="display: ${x => !x.version ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.version ? 'none' : '')}">
                     <span class="label">Lottie Version</span>
-                    <span class="value">${ x => x.version }</span>
+                    <span class="value">${(x) => x.version}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.numFrames ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.numFrames ? 'none' : '')}">
                     <span class="label">Frames</span>
-                    <span class="value">${ x => x.numFrames }</span>
+                    <span class="value">${(x) => x.numFrames}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.frameRate ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.frameRate ? 'none' : '')}">
                     <span class="label">Frame Rate</span>
-                    <span class="value">${ x => x.frameRate }</span>
+                    <span class="value">${(x) => x.frameRate}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.numLayers ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.numLayers ? 'none' : '')}">
                     <span class="label">Layers</span>
-                    <span class="value">${ x => x.numLayers }</span>
+                    <span class="value">${(x) => x.numLayers}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.numAssets ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.numAssets ? 'none' : '')}">
                     <span class="label">Assets</span>
-                    <span class="value">${ x => x.numAssets }</span>
+                    <span class="value">${(x) => x.numAssets}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.numFonts ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.numFonts ? 'none' : '')}">
                     <span class="label">Fonts</span>
-                    <span class="value">${ x => x.numFonts }</span>
+                    <span class="value">${(x) => x.numFonts}</span>
                 </div>
 
-                <hr style="display: ${x => !x.hasMeta ? 'none' : ''}"/>
+                <hr style="display: ${(x) => (!x.hasMeta ? 'none' : '')}" />
 
-                <div class="property" style="display: ${x => !x.generator ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.generator ? 'none' : '')}">
                     <span class="label">Generator</span>
-                    <span class="value">${ x => x.generator }</span>
+                    <span class="value">${(x) => x.generator}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.author ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.author ? 'none' : '')}">
                     <span class="label">Author</span>
-                    <span class="value">${ x => x.author }</span>
+                    <span class="value">${(x) => x.author}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.keywords ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.keywords ? 'none' : '')}">
                     <span class="label">Keywords</span>
-                    <span class="value">${ x => x.keywords }</span>
+                    <span class="value">${(x) => x.keywords}</span>
                 </div>
 
-                <div class="property" style="display: ${x => !x.themeColor ? 'none' : ''}">
+                <div class="property" style="display: ${(x) => (!x.themeColor ? 'none' : '')}">
                     <span class="label">Theme Color</span>
-                    <span class="value">${ x => x.themeColor }</span>
+                    <span class="value">${(x) => x.themeColor}</span>
                 </div>
             </div>
         </div>
     </pop-over>
-`
+`;
